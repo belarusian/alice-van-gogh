@@ -131,7 +131,18 @@
   @keyframes confettiFall { 0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 
   .doodle { position: absolute; font-size: 2rem; opacity: 0.15; pointer-events: none; }
-  .sunflower-deco { font-size: 5rem; display: block; margin-bottom: 10px; animation: wiggle 3s ease-in-out infinite; }
+    .sunflower-deco { font-size: 5rem; display: block; margin-bottom: 10px; animation: wiggle 3s ease-in-out infinite; }
+
+   /* Image zoom modal */
+   .zoom-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; cursor: zoom-out; animation: fadeIn 0.3s ease; }
+   .zoom-overlay.active { display: flex; }
+   .zoom-overlay img { max-width: 90vw; max-height: 90vh; border-radius: 10px; box-shadow: 0 0 60px rgba(255,255,255,0.2); }
+   .zoom-overlay .close-hint { position: absolute; bottom: 30px; color: rgba(255,255,255,0.6); font-size: 1rem; }
+   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+   /* Clickable images */
+   .zoomable { cursor: zoom-in; }
+   .zoomable:hover { transform: scale(1.02); transition: transform 0.2s; }
 
   /* Hide stars when user's painting loads */
   #starryNight .star, #starryNight .crescent-moon, #starryNight .swirl, #starryNight .hill, #starryNight .church { display: none; }
@@ -196,15 +207,15 @@
   <h2 data-en="⭐ This is Starry Night! ⭐" data-fr="⭐ Voici La Nuit Étoilée ! ⭐">⭐ This is Starry Night! ⭐</h2>
   <p style="color:#90CAF9; font-size:1.2rem; margin-bottom:10px;" data-en="(I drew this one myself! It took me a while but I am proud of it 😄)" data-fr="(Je l'ai dessiné moi-même ! Ça m'a pris un peu de temps mais je suis fière de mon travail 😄)">(I drew this one myself! It took me a while but I am proud of it 😄)</p>
   <div class="drawing-area" id="starryNight">
-    <div class="crescent-moon"></div>
-    <div class="hill"></div>
-    <div class="church">
-      <div class="church-spire"></div>
-      <div class="church-body"></div>
-    </div>
-    <img id="userPainting" src="my-starry-night.jpg" style="width:100%;height:100%;object-fit:cover;" alt="My Starry Night painting" />
-  </div>
-  <p class="my-note" data-en="&quot;I dreamed this painting...&quot; — Van Gogh would probably say something like this" data-fr="&quot;J'ai rêvé ce tableau...&quot; — Van Gogh aurait probablement dit quelque chose comme ça">&quot;I dreamed this painting...&quot; — Van Gogh would probably say something like this</p>
+     <div class="crescent-moon"></div>
+     <div class="hill"></div>
+     <div class="church">
+       <div class="church-spire"></div>
+       <div class="church-body"></div>
+     </div>
+     <img id="userPainting" src="my-starry-night.jpg" class="zoomable" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;" alt="My Starry Night painting" onclick="openZoom(this.src)" />
+   </div>
+  <p class="my-note" data-en="&quot;I painted this from a dream...&quot; — Van Gogh" data-fr="&quot;J'ai peint ce tableau depuis un rêve...&quot; — Van Gogh">&quot;I painted this from a dream...&quot; — Van Gogh</p>
 </div>
 
 <!-- Slide 5: Why Starry Night -->
@@ -300,12 +311,18 @@
 </div>
 
 <!-- Navigation -->
-<div class="nav">
-  <button class="lang-btn" onclick="toggleLang()" id="langBtn">FR</button>
-  <button class="prev-btn" onclick="changeSlide(-1)">◀ Prev</button>
-  <span class="slide-counter" id="counter">1 / 9</span>
-  <button class="next-btn" onclick="changeSlide(1)">Next ▶</button>
-</div>
+ <div class="nav">
+   <button class="lang-btn" onclick="toggleLang()" id="langBtn">FR</button>
+   <button class="prev-btn" onclick="changeSlide(-1)">◀ Prev</button>
+   <span class="slide-counter" id="counter">1 / 9</span>
+   <button class="next-btn" onclick="changeSlide(1)">Next ▶</button>
+ </div>
+
+ <!-- Image zoom overlay -->
+ <div class="zoom-overlay" id="zoomOverlay" onclick="closeZoom()">
+   <img id="zoomImage" src="" alt="Zoomed image" />
+   <p class="close-hint" data-en="Click anywhere to close" data-fr="Cliquez n'importe où pour fermer">Click anywhere to close</p>
+ </div>
 
 <script>
   let current = 1;
@@ -373,12 +390,23 @@
     }
   }
 
-  // Keyboard navigation
+   // Keyboard navigation
   document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowRight') { e.preventDefault(); changeSlide(1); }
     else if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
     else if (e.key === ' ') { e.preventDefault(); changeSlide(1); }
+    else if (e.key === 'Escape') { closeZoom(); }
   });
+
+  // Image zoom functions
+  function openZoom(src) {
+    var overlay = document.getElementById('zoomOverlay');
+    document.getElementById('zoomImage').src = src;
+    overlay.classList.add('active');
+  }
+  function closeZoom() {
+    document.getElementById('zoomOverlay').classList.remove('active');
+  }
 </script>
 
 </body>
