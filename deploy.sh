@@ -5,7 +5,7 @@
 
 set -e
 
-BUCKET="aliceart.gallery"
+BUCKET="aliceartgallery"
 REMOTE="origin"
 BRANCH="main"
 
