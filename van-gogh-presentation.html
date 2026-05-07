@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Van Gogh - My School Presentation!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+    background: #FFFDE7;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    cursor: default;
+  }
+
+  .slide {
+    display: none;
+    position: absolute;
+    inset: 0;
+    padding: 40px 50px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: slideIn 0.5s ease;
+  }
+
+  .slide.active { display: flex; }
+
+  @keyframes slideIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .slide-1 { background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #1565c0 100%); color: #FFF9C4; }
+  .slide-1 h1 { font-size: 4rem; text-shadow: 4px 4px 0 #FDD833, -2px -2px 0 #F57F17; margin-bottom: 10px; animation: wiggle 2s ease-in-out infinite; }
+  .slide-1 .subtitle { font-size: 1.5rem; color: #B3E5FC; margin-top: 10px; }
+  .slide-1 .author { font-size: 1.2rem; color: #81D4FA; margin-top: 30px; background: rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 20px; }
+
+  .slide-2 { background: #FFF8E1; border: 8px dashed #FF9800; border-radius: 20px; }
+  .slide-2 h2 { font-size: 3rem; color: #E65100; margin-bottom: 20px; text-decoration: underline wavy #FF5722; }
+  .slide-2 p { font-size: 1.4rem; color: #4E342E; max-width: 700px; line-height: 1.8; }
+  .slide-2 .fun-fact { margin-top: 25px; background: #FFEB3B; padding: 15px 25px; border-radius: 15px; font-size: 1.2rem; color: #33691E; border: 4px solid #F9A825; transform: rotate(-2deg); }
+
+  .slide-3 { background: #E8F5E9; border: 8px solid #4CAF50; border-radius: 20px; }
+  .slide-3 h2 { font-size: 2.8rem; color: #2E7D32; margin-bottom: 20px; }
+  .slide-3 .life-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 750px; margin-top: 15px; }
+  .slide-3 .life-card { background: #C8E6C9; padding: 18px; border-radius: 15px; border: 3px solid #66BB6A; font-size: 1.15rem; color: #1B5E20; text-align: left; transform: rotate(var(--rot, 0deg)); transition: transform 0.2s; }
+  .slide-3 .life-card:hover { transform: rotate(0deg) scale(1.05); }
+  .slide-3 .life-card:nth-child(1) { --rot: -3deg; }
+  .slide-3 .life-card:nth-child(2) { --rot: 2deg; }
+  .slide-3 .life-card:nth-child(3) { --rot: -1deg; }
+  .slide-3 .life-card:nth-child(4) { --rot: 3deg; }
+  .life-card .card-emoji { font-size: 2rem; display: block; margin-bottom: 5px; }
+
+  .slide-4 { background: #1a237e; color: #FFF9C4; }
+  .slide-4 h2 { font-size: 2.5rem; color: #FFD54F; margin-bottom: 15px; }
+  .slide-4 .drawing-area { position: relative; width: 520px; height: 380px; border: 6px solid #FDD833; border-radius: 15px; overflow: hidden; background: linear-gradient(180deg, #0D47A1 0%, #1565C0 40%, #1B5E20 70%, #2E7D32 100%); margin: 10px auto; }
+  .star { position: absolute; width: 22px; height: 22px; background: #FFEB3B; border-radius: 50%; box-shadow: 0 0 18px 6px rgba(255,235,59,0.9), 0 0 40px 10px rgba(255,235,59,0.3); animation: twinkle 1.5s ease-in-out infinite; }
+  @keyframes twinkle { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.6; } }
+  .crescent-moon { position: absolute; top: 30px; right: 50px; width: 60px; height: 60px; border-radius: 50%; background: #FFEE58; box-shadow: 0 0 30px 10px rgba(255,238,88,0.5); }
+  .crescent-moon::after { content: ''; position: absolute; top: -5px; left: 15px; width: 55px; height: 55px; border-radius: 50%; background: #0D47A1; }
+  .swirl { position: absolute; border: 4px solid rgba(255,255,255,0.35); border-radius: 50%; animation: spin 8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .hill { position: absolute; bottom: 0; width: 100%; height: 100px; background: #1B5E20; border-radius: 80% 90% 0 0 / 100% 100% 0 0; }
+  .church { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); }
+  .church-body { width: 40px; height: 50px; background: #3E2723; margin: 0 auto; }
+  .church-spire { width: 0; height: 0; border-left: 25px solid transparent; border-right: 25px solid transparent; border-bottom: 60px solid #4E342E; margin: 0 auto; }
+  .slide-4 .my-note { margin-top: 12px; font-size: 1.2rem; color: #B3E5FC; font-style: italic; }
+
+  .slide-5 { background: #F3E5F5; border: 8px dashed #9C27B0; border-radius: 20px; }
+  .slide-5 h2 { font-size: 2.8rem; color: #6A1B9A; margin-bottom: 25px; }
+  .slide-5 .reasons { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; }
+  .slide-5 .reason { background: white; padding: 25px 20px; border-radius: 20px; width: 200px; border: 4px solid; transition: transform 0.2s; }
+  .slide-5 .reason:hover { transform: scale(1.08) rotate(-2deg); }
+  .slide-5 .reason:nth-child(1) { border-color: #FF9800; }
+  .slide-5 .reason:nth-child(2) { border-color: #E91E63; }
+  .slide-5 .reason:nth-child(3) { border-color: #2196F3; }
+  .reason .reason-emoji { font-size: 3rem; display: block; margin-bottom: 10px; }
+  .reason h3 { font-size: 1.3rem; margin-bottom: 8px; }
+  .reason p { font-size: 1rem; color: #555; line-height: 1.5; }
+
+  .slide-6 { background: #E3F2FD; border: 8px solid #2196F3; border-radius: 20px; }
+  .slide-6 h2 { font-size: 2.8rem; color: #1565C0; margin-bottom: 25px; }
+  .slide-6 .museum-items { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
+  .slide-6 .item { background: white; border-radius: 20px; padding: 25px 20px; width: 220px; border: 4px solid #64B5F6; text-align: center; transition: transform 0.3s; cursor: pointer; }
+  .slide-6 .item:hover { transform: scale(1.05) rotate(2deg); }
+  .item .item-emoji { font-size: 4rem; display: block; margin-bottom: 10px; }
+  .item h3 { font-size: 1.2rem; color: #0D47A1; margin-bottom: 8px; }
+  .item p { font-size: 0.95rem; color: #555; line-height: 1.4; }
+
+  .slide-7 { background: #FFF3E0; border: 8px dashed #FF5722; border-radius: 20px; }
+  .slide-7 h2 { font-size: 2.8rem; color: #D84315; margin-bottom: 20px; }
+  .slide-7 .paintings-grid { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+  .slide-7 .painting-card { background: white; border-radius: 15px; padding: 15px; width: 180px; border: 4px solid #FFCC80; transition: transform 0.2s; }
+  .slide-7 .painting-card:hover { transform: scale(1.07); }
+  .painting-card .painting-colors { height: 140px; border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+  .painting-card .painting-colors img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .painting-card h3 { font-size: 1rem; color: #BF360C; margin-bottom: 4px; }
+  .painting-card p { font-size: 0.85rem; color: #777; }
+
+  .slide-8 { background: #FFEB3B; border: 8px solid #F57F17; border-radius: 20px; }
+  .slide-8 h2 { font-size: 2.8rem; color: #E65100; margin-bottom: 20px; }
+  .slide-8 .fun-list { list-style: none; text-align: left; max-width: 600px; }
+  .slide-8 .fun-list li { font-size: 1.3rem; color: #3E2723; padding: 10px 0; border-bottom: 3px dashed #FFB300; }
+  .slide-8 .fun-list li:last-child { border-bottom: none; }
+
+  .slide-9 { background: linear-gradient(135deg, #FF6F00, #FF8F00, #FFA000); color: white; }
+  .slide-9 h2 { font-size: 4rem; text-shadow: 3px 3px 0 rgba(0,0,0,0.2); animation: wiggle 1.5s ease-in-out infinite; }
+  .slide-9 p { font-size: 1.5rem; margin-top: 15px; color: #FFF3E0; }
+
+  @keyframes wiggle { 0%, 100% { transform: rotate(-2deg); } 25% { transform: rotate(2deg); } 50% { transform: rotate(-1deg); } 75% { transform: rotate(1deg); } }
+
+  .nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; align-items: center; z-index: 100; background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 50px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 3px solid #FF9800; }
+  .nav button { font-family: 'Comic Neue', cursive; font-size: 1rem; font-weight: 700; padding: 8px 18px; border: 3px solid; border-radius: 30px; cursor: pointer; transition: all 0.2s; background: white; }
+  .nav button:hover { transform: scale(1.1); }
+  .nav .prev-btn { border-color: #4CAF50; color: #2E7D32; }
+  .nav .next-btn { border-color: #2196F3; color: #1565C0; background: #E3F2FD; }
+  .nav .slide-counter { font-size: 1rem; color: #777; font-weight: 700; min-width: 60px; text-align: center; }
+  .nav .lang-btn { border-color: #9C27B0; color: #7B1FA2; background: #F3E5F5; }
+
+  .floating-star { position: fixed; font-size: 1.5rem; opacity: 0.3; pointer-events: none; animation: floatAround 6s ease-in-out infinite; z-index: 0; }
+  @keyframes floatAround { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(15deg); } }
+
+  .confetti { position: fixed; width: 10px; height: 10px; pointer-events: none; z-index: 200; animation: confettiFall 3s ease-in forwards; }
+  @keyframes confettiFall { 0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+  .doodle { position: absolute; font-size: 2rem; opacity: 0.15; pointer-events: none; }
+  .sunflower-deco { font-size: 5rem; display: block; margin-bottom: 10px; animation: wiggle 3s ease-in-out infinite; }
+
+  /* Hide stars when user's painting loads */
+  #starryNight .star, #starryNight .crescent-moon, #starryNight .swirl, #starryNight .hill, #starryNight .church { display: none; }
+  #userPainting { display: none; }
+</style>
+</head>
+<body>
+
+<!-- Floating background stars -->
+<div class="floating-star" style="top:10%;left:5%;">⭐</div>
+<div class="floating-star" style="top:20%;right:8%;animation-delay:1s;">🌟</div>
+<div class="floating-star" style="top:60%;left:3%;animation-delay:2s;">✨</div>
+<div class="floating-star" style="top:80%;right:5%;animation-delay:0.5s;">⭐</div>
+<div class="floating-star" style="top:40%;right:2%;animation-delay:1.5s;">🌟</div>
+
+<!-- Slide 1: Title -->
+<div class="slide slide-1 active" id="slide-1">
+  <span class="sunflower-deco">🌻</span>
+  <h1 data-en="Vincent van Gogh!" data-fr="Vincent van Gogh !">Vincent van Gogh!</h1>
+  <p class="subtitle" data-en="A presentation by a 4th grader who really likes art 😊" data-fr="Une présentation par une élève de CM1 qui adore l'art 😊">A presentation by a 4th grader who really likes art 😊</p>
+  <p class="author" data-en="🎨 I drew Starry Night and brought stuff from the Van Gogh Museum!" data-fr="🎨 J'ai peint La Nuit Étoilée et j'ai apporté des trucs du Musée Van Gogh !">🎨 I drew Starry Night and brought stuff from the Van Gogh Museum!</p>
+</div>
+
+<!-- Slide 2: Who was Van Gogh -->
+<div class="slide slide-2" id="slide-2">
+  <span class="doodle" style="top:10px;left:20px;">🌻</span>
+  <span class="doodle" style="top:15px;right:30px;">🎨</span>
+  <span class="doodle" style="bottom:20px;left:30px;">⭐</span>
+  <span class="doodle" style="bottom:15px;right:20px;">🖌️</span>
+  <h2 data-en="Who was Van Gogh?" data-fr="Qui était Van Gogh ?">Who was Van Gogh?</h2>
+  <p data-en="Vincent van Gogh was a super famous painter from the <strong>1800s</strong>! He was born in the Netherlands and he painted SO many amazing pictures before he died at age 37." data-fr="Vincent van Gogh était un peintre SUPER célèbre qui vivait aux <strong>années 1800</strong> ! Il est né aux Pays-Bas et il a peint BEAUCOUP de tableaux incroyables avant de mourir à 37 ans.">Vincent van Gogh was a super famous painter from the <strong>1800s</strong>! He was born in the Netherlands and he painted SO many amazing pictures before he died at age 37.</p>
+  <div class="fun-fact">
+    💡 <strong data-en="Fun fact:" data-fr="Fun fact :">Fun fact:</strong> <span data-en="He only sold ONE painting when he was alive!!! Can you believe that?? But now his paintings are worth MILLIONS of dollars!" data-fr="Il n'a vendu QU'UN seul tableau quand il était vivant !!! Vous pouvez pas croire, hein ?? Mais maintenant, ses tableaux valent des MILLIONS de dollars !">He only sold ONE painting when he was alive!!! Can you believe that?? But now his paintings are worth MILLIONS of dollars!</span>
+  </div>
+</div>
+
+<!-- Slide 3: His Life -->
+<div class="slide slide-3" id="slide-3">
+  <h2 data-en="Things About His Life" data-fr="Des trucs sur sa vie">Things About His Life</h2>
+  <div class="life-grid">
+    <div class="life-card">
+      <span class="card-emoji">🇳🇱</span>
+      <strong data-en="Born:" data-fr="Naissance :">Born:</strong> <span data-en="March 30, 1853 in the Netherlands" data-fr="30 mars 1853 aux Pays-Bas">March 30, 1853 in the Netherlands</span>
+    </div>
+    <div class="life-card">
+      <span class="card-emoji">🎨</span>
+      <strong data-en="Painted:" data-fr="Peinture :">Painted:</strong> <span data-en="Over 2,100 pieces of art in just 10 years!" data-fr="Plus de 2 100 œuvres en seulement 10 ans !">Over 2,100 pieces of art in just 10 years!</span>
+    </div>
+    <div class="life-card">
+      <span class="card-emoji">🌻</span>
+      <strong data-en="Loved:" data-fr="Il aimait :">Loved:</strong> <span data-en="Sunflowers, stars, nature, and bright colors" data-fr="Les tournesols, les étoiles, la nature et les couleurs vives">Sunflowers, stars, nature, and bright colors</span>
+    </div>
+    <div class="life-card">
+      <span class="card-emoji">📝</span>
+      <strong data-en="Wrote:" data-fr="Écritures :">Wrote:</strong> <span data-en="He wrote letters to his brother Theo almost every week" data-fr="Il a écrit des lettres à son frère Théo presque chaque semaine">He wrote letters to his brother Theo almost every week</span>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4: Starry Night (my painting!) -->
+<div class="slide slide-4" id="slide-4">
+  <h2 data-en="⭐ This is Starry Night! ⭐" data-fr="⭐ Voici La Nuit Étoilée ! ⭐">⭐ This is Starry Night! ⭐</h2>
+  <p style="color:#90CAF9; font-size:1.2rem; margin-bottom:10px;" data-en="(I drew this one myself! It took me a while but I am proud of it 😄)" data-fr="(Je l'ai dessiné moi-même ! Ça m'a pris un peu de temps mais je suis fière de mon travail 😄)">(I drew this one myself! It took me a while but I am proud of it 😄)</p>
+  <div class="drawing-area" id="starryNight">
+    <div class="crescent-moon"></div>
+    <div class="hill"></div>
+    <div class="church">
+      <div class="church-spire"></div>
+      <div class="church-body"></div>
+    </div>
+    <img id="userPainting" src="my-starry-night.jpg" style="width:100%;height:100%;object-fit:cover;" alt="My Starry Night painting" />
+  </div>
+  <p class="my-note" data-en="&quot;I dreamed this painting...&quot; — Van Gogh would probably say something like this" data-fr="&quot;J'ai rêvé ce tableau...&quot; — Van Gogh aurait probablement dit quelque chose comme ça">&quot;I dreamed this painting...&quot; — Van Gogh would probably say something like this</p>
+</div>
+
+<!-- Slide 5: Why Starry Night -->
+<div class="slide slide-5" id="slide-5">
+  <h2 data-en="Why I Chose Starry Night 💫" data-fr="Pourquoi j'ai choisi La Nuit Étoilée 💫">Why I Chose Starry Night 💫</h2>
+  <div class="reasons">
+    <div class="reason">
+      <span class="reason-emoji">🤩</span>
+      <h3 data-en="It's Creative!" data-fr="C'est Créatif !">It's Creative!</h3>
+      <p data-en="The swirls in the sky look like the stars are dancing! Nobody else painted like that before!" data-fr="Les spirales dans le ciel ressemblent à des étoiles qui dansent ! Personne n'avait jamais peint comme ça avant !">The swirls in the sky look like the stars are dancing! Nobody else painted like that before!</p>
+    </div>
+    <div class="reason">
+      <span class="reason-emoji">💖</span>
+      <h3 data-en="It's Pretty!" data-fr="C'est Beau !">It's Pretty!</h3>
+      <p data-en="The blue and yellow colors go SO well together. It looks like a beautiful night sky." data-fr="Les couleurs bleues et jaunes vont SUPER bien ensemble. Ça ressemble à un beau ciel de nuit.">The blue and yellow colors go SO well together. It looks like a beautiful night sky.</p>
+    </div>
+    <div class="reason">
+      <span class="reason-emoji">💪</span>
+      <h3 data-en="It's Hard!" data-fr="C'est Difficile !">It's Hard!</h3>
+      <p data-en="It was difficult to make but I wanted a challenge! Practice makes you better at art!" data-fr="C'était dur à faire mais je voulais un défi ! C'est en s'entraînant qu'on devient meilleur en art !">It was difficult to make but I wanted a challenge! Practice makes you better at art!</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6: Museum stuff -->
+<div class="slide slide-6" id="slide-6">
+  <h2 data-en="🏛️ Stuff I Brought From the Museum!" data-fr="🏛️ J'ai apporté des trucs du Musée !">🏛️ Stuff I Brought From the Museum!</h2>
+  <div class="museum-items">
+    <div class="item" onclick="this.querySelector('.item-emoji').style.transform='scale(1.3)'">
+      <span class="item-emoji">📖</span>
+      <h3 data-en="Flip Book!" data-fr="Livre à pages rapides !">Flip Book!</h3>
+      <p data-en="A super cool flip book with little Van Gogh drawings that move when you flip the pages!" data-fr="Un super livre avec de petits dessins de Van Gogh qui bougent quand on tourne les pages !">A super cool flip book with little Van Gogh drawings that move when you flip the pages!</p>
+    </div>
+    <div class="item" onclick="this.querySelector('.item-emoji').style.transform='scale(1.3)'">
+      <span class="item-emoji">✏️</span>
+      <h3 data-en="Museum Pencil!" data-fr="Crayon du Musée !">Museum Pencil!</h3>
+      <p data-en="A special pencil that I got from the Van Gogh Museum shop. It has his paintings on it!" data-fr="Un crayon spécial que j'ai eu au musée Van Gogh. Il a ses tableaux dessus !">A special pencil that I got from the Van Gogh Museum shop. It has his paintings on it!</p>
+    </div>
+    <div class="item" onclick="this.querySelector('.item-emoji').style.transform='scale(1.3)'">
+      <span class="item-emoji">📬</span>
+      <h3 data-en="Letters Book!" data-fr="Livre de lettres !">Letters Book!</h3>
+      <p data-en="A book of Van Gogh's letters to his brother Theo! It's so cool to read what he wrote!" data-fr="Un livre des lettres de Van Gogh à son frère Théo ! C'est trop cool de lire ce qu'il écrivait !">A book of Van Gogh's letters to his brother Theo! It's so cool to read what he wrote!</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7: Other famous paintings -->
+<div class="slide slide-7" id="slide-7">
+  <h2 data-en="Other Famous Paintings" data-fr="Autres Tableaux Célèbres">Other Famous Paintings</h2>
+  <div class="paintings-grid">
+    <div class="painting-card">
+      <div class="painting-colors">
+        <img src="sunflowers.jpeg" alt="Sunflowers painting" loading="lazy"/>
+      </div>
+      <h3 data-en="Sunflowers 🌻" data-fr="Les Tournesols 🌻">Sunflowers 🌻</h3>
+      <p data-en="Bright yellow sunflowers in a vase!" data-fr="Des tournesols jaunes brillants dans un vase !">Bright yellow sunflowers in a vase!</p>
+    </div>
+    <div class="painting-card">
+      <div class="painting-colors">
+        <img src="Vincent-van-Gogh-Bedroom-in-Arles-First-Version-1888-Shapes.jpg" alt="Bedroom in Arles painting" loading="lazy"/>
+      </div>
+      <h3 data-en="Bedroom in Arles 🛏️" data-fr="La Chambre à Arles 🛏️">Bedroom in Arles 🛏️</h3>
+      <p data-en="His really simple but colorful bedroom!" data-fr="Sa chambre simple mais très colorée !">His really simple but colorful bedroom!</p>
+    </div>
+    <div class="painting-card">
+      <div class="painting-colors">
+        <img src="Vincent_van_Gogh_Self_Portrait_1887_ChicagoArtInstitute.jpg" alt="Self Portrait painting" loading="lazy"/>
+      </div>
+      <h3 data-en="Self Portrait 🎭" data-fr="Autoportrait 🎭">Self Portrait 🎭</h3>
+      <p data-en="He painted himself a LOT of times!" data-fr="Il s'est peint des CENTAINES de fois !">He painted himself a LOT of times!</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 8: Fun things I learned -->
+<div class="slide slide-8" id="slide-8">
+  <h2 data-en="Fun Things I Learned! 🤓" data-fr="Des trucs fun que j'ai appris ! 🤓">Fun Things I Learned! 🤓</h2>
+  <ul class="fun-list">
+    <li data-en="🎨 He didn't even start painting until he was 27!" data-fr="🎨 Il a même pas commencé à peindre avant d'avoir 27 ans !">🎨 He didn't even start painting until he was 27!</li>
+    <li data-en="📧 He wrote over 800 letters in his life!" data-fr="📧 Il a écrit plus de 800 lettres dans sa vie !">📧 He wrote over 800 letters in his life!</li>
+    <li data-en="🌻 He named a painting &quot;Sunflowers&quot; — pretty obvious lol" data-fr="🌻 Il a appelé un tableau « Tournesols » — assez logique, non ? 😂">🌻 He named a painting &quot;Sunflowers&quot; — pretty obvious lol</li>
+    <li data-en="🏠 He lived in a yellow house and painted it!" data-fr="🏠 Il habitait dans une maison jaune et il l'a peinte !">🏠 He lived in a yellow house and painted it!</li>
+    <li data-en="⭐ He said the night sky is more alive than the day!" data-fr="⭐ Il a dit que le ciel de nuit est plus vivant que le jour !">⭐ He said the night sky is more alive than the day!</li>
+    <li data-en="💀 He died on July 29, 1890 when he was 37 — he shot himself, but he was really sad and sick. It's still a mystery what really happened!" data-fr="💀 Il est mort le 29 juillet 1890 à 37 ans — il s'est tiré une balle, mais il était vraiment triste et malade. Personne sait vraiment ce qui s'est passé, c'est un mystère !">💀 He died on July 29, 1890 when he was 37 — he shot himself, but he was really sad and sick. It's still a mystery what really happened!</li>
+  </ul>
+</div>
+
+<!-- Slide 9: Thank you -->
+<div class="slide slide-9" id="slide-9">
+  <h2 data-en="Thank You! 🎉" data-fr="Merci les gens ! 🎉">Thank You! 🎉</h2>
+  <p data-en="Van Gogh would be proud of my presentation I think 😅" data-fr="Van Gogh serait fier de ma présentation, je pense 😅">Van Gogh would be proud of my presentation I think 😅</p>
+  <p style="margin-top:10px; font-size:1.2rem;" data-en="Any questions?? 🙋‍♀️" data-fr="Des questions ?? 🙋‍♀️">Any questions?? 🙋‍♀️</p>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">FR</button>
+  <button class="prev-btn" onclick="changeSlide(-1)">◀ Prev</button>
+  <span class="slide-counter" id="counter">1 / 9</span>
+  <button class="next-btn" onclick="changeSlide(1)">Next ▶</button>
+</div>
+
+<script>
+  let current = 1;
+  let lang = 'en';
+  const total = 9;
+
+  function toggleLang() {
+    lang = lang === 'en' ? 'fr' : 'en';
+    document.documentElement.lang = lang;
+    document.getElementById('langBtn').textContent = lang === 'en' ? 'FR' : 'EN';
+
+    // Swap all text content based on data-en and data-fr attributes
+    var elements = document.querySelectorAll('[data-en][data-fr]');
+    for (var i = 0; i < elements.length; i++) {
+      var el = elements[i];
+      var text = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-fr');
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.placeholder = text;
+      } else {
+        el.innerHTML = text;
+      }
+    }
+  }
+
+  function changeSlide(dir) {
+    document.getElementById('slide-' + current).classList.remove('active');
+    current += dir;
+    if (current < 1) current = 1;
+    if (current > total) current = total;
+    document.getElementById('slide-' + current).classList.add('active');
+    document.getElementById('counter').textContent = current + ' / ' + total;
+    if (current === total) spawnConfetti();
+  }
+
+  // Show user's painting instead of CSS drawing
+  var userPainting = document.getElementById('userPainting');
+  userPainting.onload = function() {
+    this.style.display = 'block';
+    var drawingArea = document.getElementById('starryNight');
+    drawingArea.style.background = 'transparent';
+    // Hide CSS elements when painting loads
+    var els = drawingArea.querySelectorAll('.star, .crescent-moon, .swirl, .hill, .church');
+    for (var i = 0; i < els.length; i++) { els[i].style.display = 'none'; }
+  };
+  userPainting.onerror = function() {
+    // Fallback: keep CSS drawing
+    var els = userPainting.parentElement.querySelectorAll('.crescent-moon, .hill, .church');
+    for (var i = 0; i < els.length; i++) { els[i].style.display = 'block'; }
+  };
+
+  // Confetti on the last slide
+  function spawnConfetti() {
+    var colors = ['#FF6B6B', '#FFE66D', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFD93D', '#FF9FF3'];
+    for (var i = 0; i < 40; i++) {
+      var confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDelay = Math.random() * 2 + 's';
+      confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      confetti.style.width = (6 + Math.random() * 8) + 'px';
+      confetti.style.height = (6 + Math.random() * 8) + 'px';
+      document.body.appendChild(confetti);
+      (function(el) { setTimeout(function() { el.remove(); }, 4000); })(confetti);
+    }
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); changeSlide(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
+    else if (e.key === ' ') { e.preventDefault(); changeSlide(1); }
+  });
+</script>
+
+</body>
+</html>
